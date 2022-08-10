@@ -1,0 +1,24 @@
+
+services:
+  deno_mongo:
+    container_name: deno_mongo
+    build: .
+    depends_on:
+      - mongodb
+    networks:
+      - mongonet
+    environment:
+      - MONGODB_HOST=mongonet
+      - MONGODB_PORT=27017
+      - DENO_ENV=PROD
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    networks:
+      - mongonet
+    ports:
+      - 27017:27017
+
+networks:
+  mongonet:
